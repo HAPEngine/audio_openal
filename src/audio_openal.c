@@ -124,7 +124,7 @@ void load(HAPEngine *engine, void *state, char *identifier) {
 
 
 HAPTime update(HAPEngine *engine, void *state) {
-	return -1;
+	return 0;
 }
 
 
