@@ -3,7 +3,7 @@ PROJECT (hap_audio_openal)
 
 
 FIND_PACKAGE(OpenAL REQUIRED)
-LINK_DIRECTORIES(${OPENAL_INCLUDE_DIR})
+INCLUDE_DIRECTORIES(${OPENAL_INCLUDE_DIR})
 IF(NOT OpenAL_FOUND)
     MESSAGE(FATAL_ERROR "OpenAL must be available in order to build this module.")
 ENDIF(NOT OpenAL_FOUND)
