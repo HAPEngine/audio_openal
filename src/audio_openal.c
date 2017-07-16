@@ -12,7 +12,11 @@
 
 #include <al.h>
 #include <alc.h>
+
+#ifdef OS_Darwin
+#else
 #include <efx.h>
+#endif
 
 #include <hap.h>
 
@@ -100,7 +104,9 @@ void load(HAPEngine *engine, void *state, char *identifier) {
 	//   someday in the probably distant future. O_o
 
 	switch (effectsType) {
+	/*** TODO: Apple effects support **/
 	case EFFECTS_TYPE_EFX:
+		#ifdef AL_METERS_PER_UNIT
 		alcGetIntegerv(
 		    device,
 		    ALC_MAX_AUXILIARY_SENDS, 1,
@@ -114,6 +120,7 @@ void load(HAPEngine *engine, void *state, char *identifier) {
 		alListenerf(AL_METERS_PER_UNIT, 1.0);
 
 		if (al_check_error("Failed to set map units for EFX.")) return;
+		#endif
 
 		break;
 
