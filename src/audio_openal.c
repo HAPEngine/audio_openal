@@ -48,7 +48,7 @@ bool al_check_error(HAPEngine *engine, char *message) {
 }
 
 
-void* create(HAPEngine *engine) {
+void* create(HAPEngine *engine, HAPConfigurationSection *configuration) {
     ALState *state = calloc(1, sizeof(ALState));
 
     if (state == NULL) {
