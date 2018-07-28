@@ -22,13 +22,12 @@
 
 
 typedef struct ALState ALState;
-typedef enum EffectsType EffectsType;
 
 
-enum EffectsType {
+typedef enum EffectsType {
     EFFECTS_TYPE_NONE,
     EFFECTS_TYPE_EFX,
-};
+} EffectsType;
 
 
 struct ALState {
