@@ -1,12 +1,3 @@
-/** Modifies the linker so that it uses proper symbol names in MSVC. **/
-#ifdef OS_Windows
-#pragma comment(linker, "/EXPORT:create=create")
-#pragma comment(linker, "/EXPORT:load=load")
-#pragma comment(linker, "/EXPORT:update=update")
-#pragma comment(linker, "/EXPORT:unload=unload")
-#pragma comment(linker, "/EXPORT:destroy=destroy")
-#endif
-
 #include <stdbool.h>
 #include <stdio.h>
 
@@ -47,7 +38,7 @@ bool al_check_error(HAPEngine *engine, char *message) {
 }
 
 
-void* create(HAPEngine *engine, HAPConfigurationSection *configuration) {
+HAP_MODULE_EXPORT void* create(HAPEngine *engine, HAPConfigurationSection *configuration) {
     ALState *state = calloc(1, sizeof(ALState));
 
     if (state == NULL) {
@@ -59,7 +50,7 @@ void* create(HAPEngine *engine, HAPConfigurationSection *configuration) {
 }
 
 
-void load(HAPEngine *engine, void *state, char *identifier) {
+HAP_MODULE_EXPORT void load(HAPEngine *engine, void *state, char *identifier) {
     ALCcontext *context;
     ALCdevice *device;
     ALState *audio;
@@ -128,7 +119,7 @@ void load(HAPEngine *engine, void *state, char *identifier) {
     }
 
     // 343 kilometers per second (this is the default)
-    alSpeedOfSound(343.3);
+    alSpeedOfSound(343.3f);
 
     if (al_check_error(engine, "Failed to set the speed of sound.")) return;
 
@@ -138,12 +129,12 @@ void load(HAPEngine *engine, void *state, char *identifier) {
 }
 
 
-HAPTime update(HAPEngine *engine, void *state) {
+HAP_MODULE_EXPORT HAPTime update(HAPEngine *engine, void *state) {
     return 0;
 }
 
 
-void unload(HAPEngine *engine, void *state) {
+HAP_MODULE_EXPORT void unload(HAPEngine *engine, void *state) {
     ALState *audio = (ALState*) state;
 
     if ((*audio).context != NULL) {
@@ -158,6 +149,6 @@ void unload(HAPEngine *engine, void *state) {
 }
 
 
-void destroy(HAPEngine *engine, void *state) {
+HAP_MODULE_EXPORT void destroy(HAPEngine *engine, void *state) {
     if (state != NULL) free(state);
 }
