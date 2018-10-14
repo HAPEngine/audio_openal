@@ -42,7 +42,7 @@ HAP_MODULE_EXPORT void* create(HAPEngine *engine, HAPConfigurationSection *confi
     ALState *state = calloc(1, sizeof(ALState));
 
     if (state == NULL) {
-        (*engine).log_error(engine, "Failed to acquire memory for OpenAL module.\n");
+        (*engine).log_error(engine, "Failed to acquire memory for OpenAL module");
         return NULL;
     }
 
@@ -70,27 +70,27 @@ HAP_MODULE_EXPORT void load(HAPEngine *engine, void *state, char *identifier) {
     device = alcOpenDevice(NULL);
 
     if (device == NULL) {
-        (*engine).log_error(engine, "Error: Could not open an audio device.");
+        (*engine).log_error(engine, "Error: Could not open an audio device");
         return;
     }
 
     context = alcCreateContext(device, NULL);
 
     if (!alcMakeContextCurrent(context)) {
-        (*engine).log_error(engine, "[OpenAL] Unable to make context current.\n");
+        (*engine).log_error(engine, "[OpenAL] Unable to make context current");
         return;
     }
 
     alListenerfv(AL_GAIN, &gain);
 
-    if (al_check_error(engine, "Can not adjust volume level for audio device.")) return;
+    if (al_check_error(engine, "Can not adjust volume level for audio device")) return;
 
     if (alcIsExtensionPresent(device, "ALC_EXT_EFX") != AL_FALSE) {
         effectsType = EFFECTS_TYPE_EFX;
     }
 
     // TODO:
-    //   Apple built their own effects type, so we should imlpement that
+    //   Apple built their own effects type, so we should implement that
     //   someday in the probably distant future. O_o
 
     switch (effectsType) {
